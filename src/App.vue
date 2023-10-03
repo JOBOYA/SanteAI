@@ -1,9 +1,5 @@
 <template>
  
- 
-  
- 
-  
   <div class="center-container">
     <div id="question" :style="{ opacity: opacity }">
       <span 
@@ -22,20 +18,21 @@
     </div>
   </div>
   <canvas id="canvas3d"></canvas>
+
 </template>
 
 
 
 
 <script>
-import questions from './data/questions.js'
-import { NButton } from 'naive-ui'
+import questions from './data/questions.js';
+import { NButton } from 'naive-ui';
 import { Application } from '@splinetool/runtime';
+import diagnosisMethods from './openai/getDiagnosis.js';
 
 export default {
- 
   components: {
-    NButton
+    NButton,
   },
   data() {
     return {
@@ -44,8 +41,9 @@ export default {
       input: '',
       currentQuestion: '',
       displayedQuestion: '',
-      opacity: 1
-    }
+      opacity: 1,
+      answers: [],
+    };
   },
   mounted() {
     this.currentQuestion = this.questions[this.currentQuestionIndex].text;
@@ -53,16 +51,15 @@ export default {
     this.initializeSpline();
   },
   methods: {
+    ...diagnosisMethods.methods,
     initializeSpline() {
-    const canvas = document.getElementById('canvas3d');
-    
-    const app = new Application(canvas);
-    app.load('https://draft.spline.design/pmJMaSyiOdZqObMP/scene.splinecode');
-},
-
+      const canvas = document.getElementById('canvas3d');
+      const app = new Application(canvas);
+      app.load('https://draft.spline.design/pmJMaSyiOdZqObMP/scene.splinecode');
+    },
     async fadeOut() {
       this.opacity = 0;
-      await new Promise(resolve => setTimeout(resolve, 500)); // Pause de 500ms pour l'effet d'opacité
+      await new Promise(resolve => setTimeout(resolve, 500));
     },
     async scrambleText() {
       const originalText = this.currentQuestion;
@@ -86,21 +83,24 @@ export default {
       this.displayedQuestion = originalText;
     },
     async nextQuestion() {
+      this.answers.push(this.input);
       await this.scrambleText();
-      
+
       if (this.currentQuestionIndex < this.questions.length - 1) {
         this.currentQuestionIndex++;
         this.currentQuestion = this.questions[this.currentQuestionIndex].text;
         this.displayedQuestion = this.currentQuestion;
       } else {
-        // Faire quelque chose lorsque toutes les questions sont terminées
+        const diagnosis = await this.getDiagnosis(this.answers);
+        console.log(diagnosis);
       }
-      
+
       this.input = '';
-      this.opacity = 1;  // Réinitialiser l'opacité pour la prochaine question
+      this.opacity = 1;
     }
   }
 }
+
 </script>
 
 <style>
