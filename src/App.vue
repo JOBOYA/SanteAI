@@ -1,5 +1,5 @@
 <template>
- 
+ <h1>SanteAI</h1>
   <div class="center-container">
     <div id="question" :style="{ opacity: opacity }">
       <span 
@@ -130,6 +130,12 @@ export default {
     margin-left: 20px;  
   }
 
+
+  h1 {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 2rem;
+  }
 
 
 

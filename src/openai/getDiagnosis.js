@@ -1,5 +1,8 @@
 import axios from 'axios';
 import diagnosisData from '@/data/diagnosisMatrix.json';
+import questions from '../data/questions.js';
+import { generateSummary } from './generateSummary.js';
+
 
 
 
@@ -23,6 +26,9 @@ export default {
       }
     });
 
+// Générer le résumé
+const summary = generateSummary(scores, diagnosisData);
+
     // Comparez les scores aux seuils
     const diagnosisResults = [];
     for (const key in scores) {
@@ -35,7 +41,8 @@ export default {
           model: 'gpt-3.5-turbo',
           messages: [
             { role: 'system', content: 'You are a helpful assistant.' },
-            { role: 'user', content: `Analyse des réponses du questionnaire : ${answers.join(', ')}.` }
+            { role: 'user', content: `Analyse des réponses du questionnaire : ${answers.map((answer, index) => `${questions[index].text}: ${answer}`).join(', ')}.` }
+
           ]
         }, {
           headers: {
@@ -43,8 +50,14 @@ export default {
             'Authorization': `Bearer ${API_KEY}`
           }
         });
+        return {
+          summary: summary, 
+          openaiDiagnosis: response.data.choices[0].message.content
+        };
 
-        return response.data.choices[0].message.content;
+       
+     
+
       } catch (error) {
         console.error('Error:', error);
         return 'Une erreur est survenue lors de la récupération du diagnostic.';
@@ -53,6 +66,7 @@ export default {
     async nextQuestion() {
       const answers = []; // Récupère les réponses du questionnaire
       const diagnosis = await this.getDiagnosis(answers);
+      
       console.log(diagnosis); // Affiche le diagnostic
     }
   }
