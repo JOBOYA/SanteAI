@@ -7,11 +7,15 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@splinetool/runtime": "^0.9.460",
     "core-js": "^3.8.3",
+    "spline": "^0.0.0",
     "vue": "^3.2.13"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~5.0.0",
-    "@vue/cli-service": "~5.0.0"
+    "@vue/cli-service": "~5.0.0",
+    "naive-ui": "^2.35.0",
+    "vfonts": "^0.0.3"
   }
 }

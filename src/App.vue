@@ -1,5 +1,10 @@
 <template>
-  <div>
+ 
+ 
+  
+ 
+  
+  <div class="center-container">
     <div id="question" :style="{ opacity: opacity }">
       <span 
         v-for="(letter, index) in displayedQuestion.split('')" 
@@ -9,8 +14,14 @@
         {{ letter }}
       </span>
     </div>
-    <input v-model="input" @keyup.enter="nextQuestion" />
+    <div class="input-button-container">
+      <input v-model="input" @keyup.enter="nextQuestion" />
+      <n-button class="btn" type="tertiary" @click="nextQuestion">  <!-- Bouton Naive UI -->
+        valider
+      </n-button>
+    </div>
   </div>
+  <canvas id="canvas3d"></canvas>
 </template>
 
 
@@ -18,8 +29,14 @@
 
 <script>
 import questions from './data/questions.js'
+import { NButton } from 'naive-ui'
+import { Application } from '@splinetool/runtime';
 
 export default {
+ 
+  components: {
+    NButton
+  },
   data() {
     return {
       questions: questions,
@@ -33,8 +50,16 @@ export default {
   mounted() {
     this.currentQuestion = this.questions[this.currentQuestionIndex].text;
     this.displayedQuestion = this.currentQuestion;
+    this.initializeSpline();
   },
   methods: {
+    initializeSpline() {
+    const canvas = document.getElementById('canvas3d');
+    
+    const app = new Application(canvas);
+    app.load('https://draft.spline.design/pmJMaSyiOdZqObMP/scene.splinecode');
+},
+
     async fadeOut() {
       this.opacity = 0;
       await new Promise(resolve => setTimeout(resolve, 500)); // Pause de 500ms pour l'effet d'opacité
@@ -82,10 +107,32 @@ export default {
 #question {
   transition: opacity 0.5s ease-in-out;
   font-family: "Courier New", monospace; /* Police à chasse fixe */
+  font-size: 1.5rem;
 }
 
 .fixed-width {
   display: inline-block;
   width: 1ch;  /* Largeur fixe pour chaque caractère */
 }
+
+.input-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  
+ 
+}
+.input-button-container input {
+    margin-right: 20px; 
+  }
+  .input-button-container .btn {
+    margin-left: 20px;  
+  }
+
+
+
+
+
+
 </style>

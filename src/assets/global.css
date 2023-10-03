@@ -1,0 +1,30 @@
+/* Arrière-plan noir/vert */
+body {
+    background: linear-gradient(45deg, black, black, black, green);
+    color: lightgrey; /* Texte en gris clair */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+
+  /* Style de l'input */
+  input {
+    min-width: 300px;
+    background: black;
+    color: lightgrey;
+    border: white 1px solid;
+    padding: 0.5em;
+    border-radius: 30px;
+  }
+  
+
+
+  .center-container {
+    text-align: center;
+  }
+  
