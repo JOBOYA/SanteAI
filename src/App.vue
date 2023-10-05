@@ -1,6 +1,12 @@
 <template>
   <div>
+    
+    <div class="main-wrapper">
+      <div class="sidebar">
+      <Sidebar />
+      </div>  
     <!---Title-->
+    <div class="content-wrapper">
     <h1>SanteAI</h1>
   
     <!---Center Container-->
@@ -16,7 +22,7 @@
       <!---Input and Button-->
       <div class="field-and-loader-container">
         <div class="input-button-container">
-          <input v-model="input" @keyup.enter="input && nextQuestion()" placeholder="(possibilité de phrases)"/>
+          <input v-model="input" @keyup.enter="input && nextQuestion()" placeholder="Précisez"/>
           <n-button class="btn" type="tertiary" @click="nextQuestion" :disabled="!input">valider</n-button>
         </div>
       </div>
@@ -34,12 +40,12 @@
           </div>
         </div>
       </div>
-  
+  </div>
       <!---Loader-->
       <div v-if="isLoading" class="loader-container">
         <Loader />
       </div>
-  
+  </div>
     </div> <!---End of center-container-->
   </div> <!---End of main div-->
 </template>
@@ -49,11 +55,13 @@ import questions from './data/questions.js';
 import { NButton } from 'naive-ui';
 import diagnosisMethods from './openai/getDiagnosis.js';
 import Loader from './components/Loader.vue';
+import Sidebar from './components/Sidebar.vue';
 
     export default {
       components: {
         NButton,
-        Loader
+        Loader,
+        Sidebar
       },
       data() {
         return {
@@ -138,6 +146,7 @@ import Loader from './components/Loader.vue';
   }
 
   h1 {
+    font-family: "Courier New", monospace;
     text-align: center;
     font-size: 3rem;
     margin-bottom: 2rem;
@@ -174,9 +183,29 @@ import Loader from './components/Loader.vue';
 
 /* Container pour les cartes */
 .cards-container {
+  position: relative;
+  
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
+ 
+}
+
+.main-wrapper {
+  display: flex;
+  flex-direction: row;  /* Facultatif car c'est la valeur par défaut */
+}
+
+
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 20px;
 }
 
 /* Media query pour les écrans mobiles */

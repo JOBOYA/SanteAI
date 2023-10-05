@@ -1,6 +1,8 @@
 /* Arrière-plan noir/vert */
-body {
+body{
     background: linear-gradient(45deg, black, black, black, green);
+   
+    background-size: cover;
     color: lightgrey; /* Texte en gris clair */
     font-family: Arial, sans-serif;
     margin: 0;
@@ -8,7 +10,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
   }
   
 
@@ -26,5 +28,14 @@ body {
 
   .center-container {
     text-align: center;
+  }
+  
+
+  .sidebar {
+    position: fixed;
+    top: 10%;
+    left: 0;
+    width: 20%
+    
   }
   
