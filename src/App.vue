@@ -1,13 +1,12 @@
 <template>
-  <div>
-    
+  <div >
+    <Banner/>
     <div class="main-wrapper">
       <div class="sidebar">
-      <Sidebar />
       </div>  
     <!---Title-->
     <div class="content-wrapper">
-    <h1>SanteAI</h1>
+    <h1 class="title">SanteAI</h1>
   
     <!---Center Container-->
     <div class="center-container">
@@ -23,7 +22,7 @@
       <div class="field-and-loader-container">
         <div class="input-button-container">
           <input v-model="input" @keyup.enter="input && nextQuestion()" placeholder="Précisez"/>
-          <n-button class="btn" type="tertiary" @click="nextQuestion" :disabled="!input">valider</n-button>
+          <n-button class="btn" type="tertiary" @click="nextQuestion" :disabled="!input"><span class="text-btn">valider</span></n-button>
         </div>
       </div>
   
@@ -46,8 +45,10 @@
         <Loader />
       </div>
   </div>
+ 
     </div> <!---End of center-container-->
   </div> <!---End of main div-->
+  <!----<Timeline/>-->
 </template>
 
 <script>
@@ -55,13 +56,19 @@ import questions from './data/questions.js';
 import { NButton } from 'naive-ui';
 import diagnosisMethods from './openai/getDiagnosis.js';
 import Loader from './components/Loader.vue';
-import Sidebar from './components/Sidebar.vue';
+import Timeline from './components/Timeline.vue';
+import Banner from './components/Banner.vue'
+
+
+
 
     export default {
       components: {
         NButton,
         Loader,
-        Sidebar
+        Timeline,
+        Banner
+        
       },
       data() {
         return {
@@ -119,104 +126,140 @@ import Sidebar from './components/Sidebar.vue';
 </script>
 
 <style>
-#question {
-  transition: opacity 0.5s ease-in-out;
-  font-family: "Courier New", monospace; /* Police à chasse fixe */
-  font-size: 1.5rem;
-}
+    .title {
+      color: #864df7;
+    }
+    
+    #question {
+      transition: opacity 0.5s ease-in-out;
+      font-family: "Courier New", monospace; /* Police à chasse fixe */
+      font-size: 1.5rem;
+      color: white;
+    }
 
-.fixed-width {
-  display: inline-block;
-  width: 1ch;  /* Largeur fixe pour chaque caractère */
-}
+    .fixed-width {
+      display: inline-block;
+      width: 1ch;  
+    }
 
-.input-button-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 1rem;
-}
+    .input-button-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      margin-top: 1rem;
+    }
 
-.input-button-container input {
-    margin-right: 20px; 
-  }
+    .input-button-container input {
+      margin-bottom: 10px;
+      width: 50%;
+      border: 3px solid slateblue;
+      background: none;
+    }
 
-  .input-button-container .btn {
-    margin-left: 20px;  
-  }
+    .input-button-container .btn {
+      width: 50%;
+    }
 
-  h1 {
-    font-family: "Courier New", monospace;
-    text-align: center;
-    font-size: 3rem;
-    margin-bottom: 2rem;
-  }
+    h1 {
+      font-family: "Courier New", monospace;
+      text-align: center;
+      font-size: 3rem;
+      margin-bottom: 2rem;
+    }
 
+    li {
+      margin-bottom: 10px;
+    }
 
-  li {
-    margin-bottom: 10px;
-  }
+    .field-and-loader-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-  .field-and-loader-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+    .loader-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+    }
 
-.loader-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-}
+    /* Style de base pour les cartes */
+    .diagnosis-card {
+      border: 2px solid white;
+      padding: 20px;
+      margin: 10px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      flex: 1 1 calc(50% - 20px); /* Largeur de base pour les cartes */
+    }
 
-/* Style de base pour les cartes */
-.diagnosis-card {
-  border: 2px solid white;
-  padding: 20px;
-  margin: 10px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  flex: 1 1 calc(33.333% - 20px); /* Largeur de base pour les cartes */
- 
-}
+    /* Container pour les cartes */
+    .cards-container {
+       position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+    }
 
-/* Container pour les cartes */
-.cards-container {
-  position: relative;
-  
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
- 
-}
+    .main-wrapper {
+      background: #0b0915;
+    
+      border: 1px solid #301761;
+      border-radius: 50px;
+      min-height: 500px;
+      height: auto;
+      width: 90%; /* Utilisation d'un pourcentage pour la largeur */
+      max-width: 1000px; /* Largeur maximale du cadre */
+      overflow: auto;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
 
-.main-wrapper {
-  display: flex;
-  flex-direction: row;  /* Facultatif car c'est la valeur par défaut */
-}
+    .btn {
+      width: 100px;
+      border-radius: 20px;
+      height: 40px;
+      background-color: #05f283;
+    }
 
+    .btn:disabled {
+      background-color: #05f283; /* Même couleur de fond pour l'état désactivé */
+      color: black;
+    }
 
-.content-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-  width: 100%;
-  max-width: 1200px;
-  padding: 0 20px;
-}
+    .text-btn {
+      color: black;
+      font-size: 15px;
+      font-weight: bold;
+    }
 
-/* Media query pour les écrans mobiles */
-@media screen and (max-width: 768px) {
-  .diagnosis-card {
-    flex: 1 1 100%; /* Sur mobile, prendre toute la largeur disponible */
-  }
-}
+    .content-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      width: 100%;
+      max-width: 1200px;
+      padding: 0 20px;
+    }
 
+    /* Media query pour les écrans tablettes */
+    @media screen and (max-width: 768px) {
+      .diagnosis-card {
+        flex: 1 1 calc(50% - 20px); /* Sur tablette, prendre 50% de la largeur disponible */
+      }
+    }
 
-
-
-
-</style>
+    /* Media query pour les écrans mobiles */
+    @media screen and (max-width: 480px) {
+      .diagnosis-card {
+        flex: 1 1 100%; /* Sur mobile, prendre toute la largeur disponible */
+      }
+    }
+  </style>

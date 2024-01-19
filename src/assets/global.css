@@ -1,18 +1,18 @@
 /* Arrière-plan noir/vert */
-body{
-    background: linear-gradient(45deg, black, black, black, green);
-   
-    background-size: cover;
-    color: lightgrey; /* Texte en gris clair */
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-  }
+body {
   
+  background-color: #ca70fa;
+  background-image: linear-gradient(179deg, #ca70fa 0%, #faca70 39%, #fa70f5 100%);
+  
+
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
 
   /* Style de l'input */
   input {
@@ -27,15 +27,8 @@ body{
 
 
   .center-container {
-    text-align: center;
-  }
-  
+   
 
-  .sidebar {
-    position: fixed;
-    top: 10%;
-    left: 0;
-    width: 20%
-    
-  }
-  
+    text-align: center;
+   }
+   
