@@ -1,11 +1,16 @@
+* {
+  margin: 0;
+  padding: 0;
+  /* Ajouter 'box-sizing: border-box;' pour s'assurer que les paddings et borders sont inclus dans la largeur/hauteur totale des éléments */
+  box-sizing: border-box;
+}
+
 /* Arrière-plan noir/vert */
 body {
-  
+  overflow-x: hidden;
   background-color: #ca70fa;
   background-image: linear-gradient(179deg, #ca70fa 0%, #faca70 39%, #fa70f5 100%);
-  
-
-  font-family: Arial, sans-serif;
+ font-family: 'IBM Plex Mono', 'monospace';
   margin: 0;
   padding: 0;
   display: flex;
@@ -32,3 +37,6 @@ body {
     text-align: center;
    }
    
+
+   
+

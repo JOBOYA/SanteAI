@@ -13,6 +13,7 @@
     "@vueuse/motion": "^2.0.0",
     "axios": "^1.5.1",
     "core-js": "^3.8.3",
+    "d3": "^7.8.5",
     "openai": "^4.11.1",
     "primevue": "^3.46.0",
     "react-spinners": "^0.13.8",

@@ -6,11 +6,13 @@
       </div>  
     <!---Title-->
     <div class="content-wrapper">
+
     <h1 class="title">SanteAI</h1>
   
     <!---Center Container-->
     <div class="center-container">
       
+
       <!---Question-->
       <div id="question" :style="{ opacity: opacity }">
         <span v-for="(letter, index) in displayedQuestion.split('')" :key="index" class="fixed-width">
@@ -24,6 +26,8 @@
           <input v-model="input" @keyup.enter="input && nextQuestion()" placeholder="Précisez"/>
           <n-button class="btn" type="tertiary" @click="nextQuestion" :disabled="!input"><span class="text-btn">valider</span></n-button>
         </div>
+        
+
       </div>
   
       <!---Diagnostic-->
@@ -44,11 +48,14 @@
       <div v-if="isLoading" class="loader-container">
         <Loader />
       </div>
+      <Node/>
   </div>
- 
+  
     </div> <!---End of center-container-->
+   
   </div> <!---End of main div-->
   <!----<Timeline/>-->
+ 
 </template>
 
 <script>
@@ -56,9 +63,8 @@ import questions from './data/questions.js';
 import { NButton } from 'naive-ui';
 import diagnosisMethods from './openai/getDiagnosis.js';
 import Loader from './components/Loader.vue';
-import Timeline from './components/Timeline.vue';
 import Banner from './components/Banner.vue'
-
+import Node from './components/Node.vue'
 
 
 
@@ -66,8 +72,10 @@ import Banner from './components/Banner.vue'
       components: {
         NButton,
         Loader,
-        Timeline,
-        Banner
+        
+        Banner,
+        Node
+      
         
       },
       data() {
